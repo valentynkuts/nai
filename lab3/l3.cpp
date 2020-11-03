@@ -14,12 +14,15 @@ class MyObject
 public:
 	int maxC;
 	vector<Point> pos;
-    // average
+    //average
 	Point getP()  
 	{
 		Point sump = std::accumulate(pos.begin(), pos.end(), Point(0, 0));
-		sump.x /= pos.size();
-		sump.y /= pos.size();
+        
+        double pos_size = (double)pos.size();
+        sump.x /= pos_size;
+		sump.y /= pos_size;
+        
 		return sump;
 	}
 	void addP(Point p)
@@ -47,11 +50,12 @@ int main() {
 	int hiRange[3] = {45,255,255};
 
 	VideoCapture camera(0);
-	
+    
     MyObject myobj, myobj2;
-	myobj.maxC = 10;
+    myobj.maxC = 10;
     myobj2.maxC = 10;
     
+	
 	while ( waitKey(1) != 27  ) {  //ESC
 		Mat frame;
 		Mat frameMask;
@@ -82,6 +86,7 @@ int main() {
             
         }
         
+        
         if (contours.size() >= 2)
 		{
 			Point avg;
@@ -102,22 +107,18 @@ int main() {
 			myobj.addEmpty();
             myobj2.addEmpty();
 		}
+		
 		if (myobj.pos.size() > 1) {
 			putText(frame, "X", myobj.getP(), cv::FONT_HERSHEY_PLAIN, 2, {0, 0, 100, 255});
             
-// 			vector<vector<Point>>ctrs = {myobj.pos};//Point
-// 			drawContours(frame, ctrs, 0, {255, 0, 255, 255});	
 		}
 		
 		if (myobj2.pos.size() > 1) {
 			putText(frame, "X", myobj2.getP(), cv::FONT_HERSHEY_PLAIN, 2, {0, 0, 100, 255});
             
-// 			vector<vector<Point>>ctrs1 = {myobj2.pos};
-// 			drawContours(frame, ctrs1, 0, {255, 0, 255, 255});	
  		}
 		
        
-        
         if(myobj.getP().y == myobj2.getP().y){
              Scalar colorLine(0,255,0); // Green
              //int thicknessLine = 2;
