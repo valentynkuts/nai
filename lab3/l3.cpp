@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <cmath>
 
 using namespace cv;
 using namespace std;
@@ -102,11 +103,11 @@ int main() {
 			avg1.y = r1.y + r1.height / 2;
 			myobj2.addP(avg1);
 		}
-		else
-		{
-			myobj.addEmpty();
-            myobj2.addEmpty();
-		}
+// 		else
+// 		{
+// 			myobj.addEmpty();
+//          myobj2.addEmpty();
+// 		}
 		
 		if (myobj.pos.size() > 1) {
 			putText(frame, "X", myobj.getP(), cv::FONT_HERSHEY_PLAIN, 2, {0, 0, 100, 255});
@@ -118,12 +119,19 @@ int main() {
             
  		}
 		
-       
-        if(myobj.getP().y == myobj2.getP().y){
+        double d = abs(myobj.getP().y - myobj2.getP().y);
+        
+        if(d < 100){
              Scalar colorLine(0,255,0); // Green
              //int thicknessLine = 2;
              line(frame, myobj.getP(), myobj2.getP(), colorLine, 2);
-        }             
+        }  
+        
+       /* if(myobj.getP().y == myobj2.getP().y  ){
+             Scalar colorLine(0,255,0); // Green
+             int thicknessLine = 2;
+             line(frame, myobj.getP(), myobj2.getP(), colorLine, 2);
+        }     */        
 		
 		imshow("contours", frame);
         
