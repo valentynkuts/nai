@@ -169,8 +169,8 @@ class Opt
             return current_solution;
         };
         
-        void show(auto func, auto solution){
-            
+        void show(auto func, auto solution, string str){
+            cout<< str<<endl;
             cout << "result: [ ";
             for (auto e : solution)
                 cout << e << " ";
@@ -181,8 +181,22 @@ class Opt
 };
 
 
-int main()
+int main(int argc, char **argv)
 {
+    string func;
+    int lowlimit;
+    int uplimit;
+    
+    if(argc == 4){
+		func = argv[1];
+        lowlimit = atoi(argv[2]);
+        uplimit = atoi(argv[3]);
+	} else{
+		func = "himmelblau";
+        lowlimit = -5;
+        uplimit = 5;
+	}
+
 
 auto sphere_f = [](vector<double> x) {
         double sum = 0;
@@ -239,29 +253,44 @@ Opt o4(-10,10,100000);
 auto solution4 = o4.hill_climbing_r_alg(booth);
 o4.show(booth, solution4);
 */
-//cout<< M_PI<< endl;
 
-//cout<< ''<< endl;
-Opt o(-5,5,100000);   
-// auto result = o.hill_climbing_r_alg(himmelblau);
-// o.show(himmelblau, result);
 
-//cout<< ''<< endl;
-auto result1 = o.hill_climbing_r_alg(thc);
-o.show(thc, result1);
+Opt o(lowlimit,uplimit,100000);
+if(func == "himmelblau"){
+    cout<< "himmelblau"<< endl;
+   o.set_limits(lowlimit,uplimit); 
+    auto result = o.hill_climbing_r_alg(himmelblau);
+    o.show(himmelblau, result,"himmelblau");
+}
 
-// o.set_limits(-100,100);   
-// auto result2 = o.hill_climbing_r_alg(easom);  //TODO
-// o.show(easom, result2);
-// 
-// o.set_limits(-5,5);   
-// auto result3 = o.hill_climbing_r_alg(sphere_f);
-// o.show(sphere_f, result3);
-// 
-// o.set_limits(-10,10);
-// auto result4 = o.hill_climbing_r_alg(booth);
-// o.show(booth, result4);
-    
+if(func == "thc"){
+    cout<< "thc"<< endl;
+    o.set_limits(lowlimit,uplimit); 
+    auto result1 = o.hill_climbing_r_alg(thc);
+    o.show(thc, result1, "thc");
+}
+
+if(func == "easom"){
+    cout<< "easom"<< endl;
+    o.set_limits(lowlimit,uplimit);   
+    auto result2 = o.hill_climbing_r_alg(easom);  //TODO
+    o.show(easom, result2,"easom");
+}
+
+if(func == "sphere_f"){
+    cout<< "sphere_f"<< endl;
+    o.set_limits(lowlimit,uplimit);   
+    auto result3 = o.hill_climbing_r_alg(sphere_f);
+    o.show(sphere_f, result3,"sphere_f");
+}
+
+if(func == "booth"){
+    cout<< "booth"<< endl;
+    o.set_limits(lowlimit,uplimit);
+    auto result4 = o.hill_climbing_r_alg(booth);
+    o.show(booth, result4, "booth");
+}
+
  return 0;
 }
  
