@@ -358,7 +358,6 @@ int main()
 
     cout << "----------new population--------------" << endl;
     
-    //vector<chromosome_t> new_pop(size_pop);
     double best = genetic_algorithm(population,
                                 selection,
                                 crossover,
@@ -374,20 +373,6 @@ int main()
                                 himmelblau,
                                 ocena);
     
-//     print_pop(new_pop, print, decode, slice, bin_to_double);
-// 
-//     auto oceny_end = ocena(new_pop, decode, slice, bin_to_double, fitness, himmelblau);
-//     cout << endl;
-//     cout << "oceny_start:  ";
-//     print_oceny(oceny_start);
-//     
-//     cout << "oceny_end:  ";
-//     print_oceny(oceny_end);
-//     
-//     sort(oceny_end.begin(), oceny_end.end(), [](auto a, auto b) { return a > b; });
-//     cout << endl;
-//     cout << "sorted oceny_end:  ";
-//     print_oceny(oceny_end);
-    
+
     cout << best << endl;
 }
